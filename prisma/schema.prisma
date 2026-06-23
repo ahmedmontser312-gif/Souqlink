@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("merchant")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  store     Store?
+}
+
+model Store {
+  id             String   @id @default(cuid())
+  name           String
+  slug           String   @unique
+  description    String   @default("")
+  logo           String   @default("")
+  coverImage     String   @default("")
+  whatsappNumber String   @default("")
+  approved       Boolean  @default(false)
+  ownerId        String   @unique
+  owner          User     @relation(fields: [ownerId], references: [id])
+  products       Product[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Product {
+  id             String       @id @default(cuid())
+  name           String
+  slug           String
+  price          Float
+  description    String       @default("")
+  category       String       @default("General")
+  whatsappNumber String       @default("")
+  storeId        String
+  store          Store        @relation(fields: [storeId], references: [id])
+  storeName      String       @default("")
+  featured       Boolean      @default(false)
+  images         ProductImage[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  url       String
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Slider {
+  id          String   @id @default(cuid())
+  title       String   @default("")
+  description String   @default("")
+  image       String
+  link        String   @default("")
+  type        String
+  active      Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
