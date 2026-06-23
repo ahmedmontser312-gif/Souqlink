@@ -5,7 +5,7 @@
   "description": "SouqLink - B2C Marketplace Platform",
   "scripts": {
     "dev": "next dev --no-turbopack",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "seed": "node scripts/seed.mjs"
