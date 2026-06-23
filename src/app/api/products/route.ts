@@ -10,9 +10,12 @@ export async function GET(req: NextRequest) {
     const category = searchParams.get("category");
     const featured = searchParams.get("featured");
 
+    const session = await getServerSession(authOptions);
+    const isAdminOrMerchant = session && ["admin", "merchant"].includes((session.user as any).role);
+
     if (featured === "true") {
       const products = await prisma.product.findMany({
-        where: { featured: true },
+        where: { featured: true, store: { approved: true } },
         include: { store: true, images: true },
         take: 5,
       });
@@ -24,6 +27,9 @@ export async function GET(req: NextRequest) {
     const filter: Record<string, unknown> = {};
     if (store) filter.storeId = store;
     if (category) filter.category = category;
+    if (!isAdminOrMerchant) {
+      filter.store = { approved: true };
+    }
 
     const products = await prisma.product.findMany({
       where: filter,

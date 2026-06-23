@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 
 interface ProductCardProps {
   product: {
-    _id: string
+    id: string
     name: string
     price: number
     images: string[]
@@ -26,7 +26,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-lg border bg-card shadow-sm transition-all hover:shadow-md">
-      <Link href={`/product/${product._id}`} className="overflow-hidden">
+      <Link href={`/product/${product.id}`} className="overflow-hidden">
         <div className="relative aspect-square overflow-hidden bg-muted">
           <Image
             src={imageSrc}
@@ -38,7 +38,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
       </Link>
       <div className="flex flex-1 flex-col gap-2 p-4">
-        <Link href={`/product/${product._id}`}>
+        <Link href={`/product/${product.id}`}>
           <h3 className="line-clamp-2 text-sm font-medium leading-tight hover:underline">
             {product.name}
           </h3>

@@ -11,11 +11,11 @@ import { toast } from "@/components/ui/toast";
 import { Check, X } from "lucide-react";
 
 interface Merchant {
-  _id: string;
+  id: string;
   name: string;
   email: string;
   stores?: {
-    _id: string;
+    id: string;
     name: string;
     slug: string;
     approved: boolean;
@@ -62,7 +62,7 @@ export default function AdminMerchants() {
       <h1 className="text-2xl font-bold mb-6">Merchants</h1>
       <div className="space-y-4">
         {merchants.map((merchant) => (
-          <Card key={merchant._id}>
+          <Card key={merchant.id}>
             <CardHeader>
               <CardTitle className="text-lg">{merchant.name}</CardTitle>
             </CardHeader>

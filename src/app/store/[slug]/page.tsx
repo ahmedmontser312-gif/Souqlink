@@ -20,7 +20,7 @@ export default async function StorePage({ params }: { params: Promise<{ slug: st
 
   let products: any[] = []
   try {
-    const res = await fetch(`${baseUrl}/api/products?store=${store._id}`, { cache: "no-store" })
+    const res = await fetch(`${baseUrl}/api/products?store=${store.id}`, { cache: "no-store" })
     if (res.ok) products = await res.json()
   } catch {
     // products stays empty
@@ -78,7 +78,7 @@ export default async function StorePage({ params }: { params: Promise<{ slug: st
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {products.map((product) => (
-              <ProductCard key={product._id} product={product} />
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         )}

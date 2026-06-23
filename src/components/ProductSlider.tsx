@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import ProductCard from "@/components/ProductCard"
 
 interface Product {
-  _id: string
+  id: string
   name: string
   price: number
   images: string[]
@@ -62,7 +62,7 @@ export default function ProductSlider({ title, products }: ProductSliderProps) {
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {products.map((product) => (
-          <div key={product._id} className="min-w-[220px] max-w-[220px] flex-shrink-0">
+          <div key={product.id} className="min-w-[220px] max-w-[220px] flex-shrink-0">
             <ProductCard product={product} />
           </div>
         ))}

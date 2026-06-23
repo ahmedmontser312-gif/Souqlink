@@ -19,8 +19,8 @@ export default function MerchantDashboard() {
   }, []);
 
   useEffect(() => {
-    if (!store?._id) return;
-    fetch(`/api/products?store=${store._id}`)
+    if (!store?.id) return;
+    fetch(`/api/products?store=${store.id}`)
       .then((r) => r.json())
       .then((products) => setProductCount(products.length))
       .catch(console.error);

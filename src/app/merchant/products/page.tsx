@@ -38,7 +38,7 @@ const categories = [
 ];
 
 interface Product {
-  _id: string;
+  id: string;
   name: string;
   price: number;
   images: string[];
@@ -65,8 +65,8 @@ export default function MerchantProducts() {
     fetch("/api/me")
       .then((r) => r.json())
       .then((data) => {
-        if (data.store?._id) {
-          setStoreId(data.store._id);
+        if (data.store?.id) {
+          setStoreId(data.store.id);
           setForm((p) => ({
             ...p,
             whatsappNumber: data.store.whatsappNumber || "",
@@ -107,7 +107,7 @@ export default function MerchantProducts() {
           : [],
       };
 
-      const url = editing ? `/api/products/${editing._id}` : "/api/products";
+      const url = editing ? `/api/products/${editing.id}` : "/api/products";
       const method = editing ? "PUT" : "POST";
 
       const res = await fetch(url, {
@@ -122,7 +122,7 @@ export default function MerchantProducts() {
 
       if (editing) {
         setProducts((prev) =>
-          prev.map((p) => (p._id === saved._id ? saved : p))
+          prev.map((p) => (p.id === saved.id ? saved : p))
         );
       } else {
         setProducts((prev) => [...prev, saved]);
@@ -143,7 +143,7 @@ export default function MerchantProducts() {
     try {
       const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Failed");
-      setProducts((prev) => prev.filter((p) => p._id !== id));
+      setProducts((prev) => prev.filter((p) => p.id !== id));
       toast({ title: "Product deleted" });
     } catch {
       toast({ title: "Error", description: "Failed to delete product" });
@@ -265,7 +265,7 @@ export default function MerchantProducts() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((product) => (
-          <Card key={product._id}>
+          <Card key={product.id}>
             <CardHeader className="p-0">
               <div className="aspect-square relative overflow-hidden rounded-t-lg">
                 <img
@@ -296,7 +296,7 @@ export default function MerchantProducts() {
                   variant="destructive"
                   size="sm"
                   className="flex-1"
-                  onClick={() => deleteProduct(product._id)}
+                  onClick={() => deleteProduct(product.id)}
                 >
                   <Trash2 className="h-4 w-4 mr-1" /> Delete
                 </Button>
