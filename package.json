@@ -4,7 +4,7 @@
   "private": true,
   "description": "SouqLink - B2C Marketplace Platform",
   "scripts": {
-    "dev": "next dev --no-turbopack",
+    "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
